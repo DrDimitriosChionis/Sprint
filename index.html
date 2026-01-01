@@ -887,6 +887,34 @@
     <span class="close-btn">&times;</span>
     <img class="modal-content" id="img01">
   </div>
+  // --- Κώδικας για το Modal (Popup) ---
+    
+    function openModal(imageSrc) {
+      const modal = document.getElementById("myModal");
+      const modalImg = document.getElementById("img01");
+      
+      modal.style.display = "block";
+      modalImg.src = imageSrc;
+      
+      // Απενεργοποίηση scroll στην πίσω σελίδα
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("myModal");
+      
+      modal.style.display = "none";
+      
+      // Ενεργοποίηση scroll ξανά
+      document.body.style.overflow = "auto";
+    }
+
+    // Κλείσιμο αν πατήσουμε το ESC
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
 </script>
 </body>
 </html>
