@@ -638,16 +638,18 @@
     </div>
   </footer>
 
-  <script>
+<script>
     const langButtons = document.querySelectorAll('.lang-btn');
     const i18nElements = document.querySelectorAll('[data-i18n]');
 
     const translations = {
+      // 1. Προσθέτουμε ένα άδειο αντικείμενο για τα Ελληνικά
+      el: {}, 
       en: {
         'contact': 'Contact',
         'hero-title': 'When risk is real, decisions and communication must be clear.',
         'hero-subtitle': 'I map how your people perceive risk and how they talk about it. Then I give you three priorities that reduce errors and noise.',
-        'trust-line': 'MSc Human Factors in Aviation | PhD Risk Perception & Risk Communication | Military Psychologist specialised in Human Factors in Aviation',
+        'trust-line': 'MSc Human Factors in Aviation | PhD Risk Perception & Risk Communication | Psychologist specialised in Human Factors in Aviation',
         'cta-primary': 'Book a 15-minute call',
         'cta-secondary': 'See what you get',
         'cta-contact-options': 'Choose contact method',
@@ -719,14 +721,25 @@
       }
     };
 
+    // 2. Αποθηκεύουμε τα αρχικά ελληνικά κείμενα ΠΡΙΝ πατηθεί οποιοδήποτε κουμπί
+    i18nElements.forEach(el => {
+      const key = el.dataset.i18n;
+      // Παίρνουμε το κείμενο που έχει ήδη το HTML και το βάζουμε στη λίστα 'el'
+      translations.el[key] = el.innerText; // ή el.textContent
+    });
+
     langButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.lang;
+        
+        // Απενεργοποίηση όλων των κουμπιών και ενεργοποίηση του επιλεγμένου
         langButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
+        // Αλλαγή γλώσσας
         i18nElements.forEach(el => {
           const key = el.dataset.i18n;
+          // Τώρα το translations[lang] υπάρχει και για 'el' και για 'en'
           if (translations[lang] && translations[lang][key]) {
             el.textContent = translations[lang][key];
           }
@@ -735,7 +748,8 @@
         document.documentElement.lang = lang === 'en' ? 'en' : 'el';
       });
     });
-  </script>
+</script>
 </body>
 </html>
+
 
